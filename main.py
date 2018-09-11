@@ -1,6 +1,9 @@
 import argparse, sys, os.path, time
 from sg_module.sg import SG
 
+username = None
+password = None
+
 types = ["girl", "g", 
 		 "hopeful", "h", 
 		 "set", "s", 
@@ -57,7 +60,16 @@ def parse_arguments():
 		type = "all"
 		urls = ["https://www.suicidegirls.com/photos/"]
 	
-	return args.dir, args.processes, urls, type, time_period_translations[args.time_period]
+	if username is None:
+		un = args.un
+	else:
+		un = username
+	if password is None:
+		pw = args.pw
+	else:
+		pw = password
+	
+	return args.dir, args.processes, urls, type, time_period_translations[args.time_period], un, pw
 	
 def build_argparse():
 	parser = argparse.ArgumentParser()
@@ -69,13 +81,18 @@ def build_argparse():
 	parser.add_argument("-n", "--name", dest="names", nargs=argparse.REMAINDER, help="The names to rip for girls and hopefuls")
 	parser.add_argument("-u", "--url", dest="urls", nargs=argparse.REMAINDER, help="The URLs to rip for sets")
 	
+	if username is None:
+		parser.add_argument("-l", "--username", dest="un", default=None, help="The username to use when logging in")
+	if password is None:
+		parser.add_argument("-s", "--password", dest="pw", default=None, help="The password to use when logging in")
+	
 	return parser
 	
 if __name__ == "__main__":
 	print_welcome()
 	args = parse_arguments()
 	exec_dir = os.path.dirname(os.path.abspath(__file__))
-	sg = SG(exec_dir, args[0], args[1], args[2], args[3], args[4])
+	sg = SG(exec_dir, args[5], args[6], args[0], args[1], args[2], args[3], args[4])
 	sg.startup()
 	start = time.time()
 	sg.rip()

@@ -10,11 +10,11 @@ class SG:
 	argument_lists = []
 	stop_dispatching = False
 	
-	def __init__(self, exec_dir, dir, process_limit, urls, type, time_period):
+	def __init__(self, exec_dir, username, password, dir, process_limit, urls, type, time_period):
 		SG.dispatcher_thread = threading.Thread(target=self.__dispatch)
 		
-		self.username = "MrNakaan"
-		self.password = "zE467#Eb3xTK"
+		self.username = username
+		self.password = password
 		self.root_url = "https://www.suicidegirls.com/"
 		self.dir = dir
 		self.exec_dir = exec_dir
@@ -29,6 +29,7 @@ class SG:
 		if type in ["girl", "hopeful"]:
 			for url in urls:
 				self.urls.append(self.__build_url(url))
+				print(self.__build_url(url))
 		else:
 			self.urls = urls
 			

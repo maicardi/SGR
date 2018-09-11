@@ -9,6 +9,7 @@ A script for ripping full-quality Suicide Girls photosets.
 5) Create a new directory called "dependencies" (`C:\SGR\dependencies` or `/var/SGR/dependencies`)
 6) Download the Chrome webdriver from http://chromedriver.chromium.org/ and place it into the dependencies directory (`C:\SGR\dependencies\chromedriver.exe` or `/var/SGR/dependencies/chromedriver`)
 7) Download aria2 from https://aria2.github.io/ and extract the files (not the directories) in the archive into a new folder `dependencies/aria2` (`C:\SGR\dependencies\aria2\aria2c.exe` or `/var/SGR/dependencies/aria2/aria`; compilation may be necessary for non-Windows users)
+8) Optional: open `sg_module/sg.py` in an editor and set your username and password on lines 4 and 5 (like `username = dudebro`). This will make it so you can't pass in the username and password when invoking the script, which can be insecure
 
 ## Usage
 `cd` into your install directory and call `python main.py -h` for help
@@ -36,6 +37,8 @@ A script for ripping full-quality Suicide Girls photosets.
 	7. All years from 2001 to 2018 inclusive  
 * `-n [name]`, `--name [name]` - The name(s) of girls to rip; only works for suicide girls and hopefuls; DO NOT MIX SUICIDE GIRLS AND HOPEFULS  
 * `-u [url]`, `--url [url]` - The URL(s) of sets to rip  
+* `-l [username]`, `--username [username]` - The username to use when logging in
+* `-s [password]`, `--password [password]` - The password to use when logging in
 
 ## Examples
 ```
