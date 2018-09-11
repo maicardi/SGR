@@ -14,33 +14,29 @@ A script for ripping full-quality Suicide Girls photosets.
 `cd` into your install directory and call `python main.py -h` for help
 
 ## Flags
-`-d`, `--dir` - The parent directory into which photosets should be downloaded (dir/Suicide Girls/<girl>/<set>); defaults to the current working directory
+`-d`, `--dir` - The parent directory into which photosets should be downloaded (dir/Suicide Girls/<girl>/<set>); defaults to the current working directory  
+`-p`, `--processes` - SGR uses Python's multiprocessing library for calling into aria2 for downloads, this flag sets the maximum number of processes it can spawn; defaults to 4  
+`-t [type]`, `--type [type]` - The type of content to ripping  
+    The following types are supported:  
+	1) `g` or `girl` - all photosets by the specified suicide girls  
+	2) `h` or `hopeful` - all photosets by the specified hopefuls  
+	3) `s` or `set` - the photosets at the URLs provided  
+	4) `ag` or `all_girls` - all photosets by all suicide girls who had a photoset in the chosen time period  
+	5) `ah` or `all_hopefuls` - all photosets by all hopefuls who had a photoset in the chosen time period  
+	6) `as`, `all_sotds`, or `all_sets_of_the_day` - all photosets by all suicide girls with a featured set of the day in the chosen time period  
+	7) `a` or `all` - all photosets in the chosen time period  
 
-`-p`, `--processes` - SGR uses Python's multiprocessing library for calling into aria2 for downloads, this flag sets the maximum number of processes it can spawn; defaults to 4
-
-`-t [type]`, `--type [type]` - The type of content to ripping
-    The following types are supported:
-	1) `g` or `girl` - all photosets by the specified suicide girls
-	2) `h` or `hopeful` - all photosets by the specified hopefuls
-	3) `s` or `set` - the photosets at the URLs provided
-	4) `ag` or `all_girls` - all photosets by all suicide girls who had a photoset in the chosen time period
-	5) `ah` or `all_hopefuls` - all photosets by all hopefuls who had a photoset in the chosen time period
-	6) `as`, `all_sotds`, or `all_sets_of_the_day` - all photosets by all suicide girls with a featured set of the day in the chosen time period
-	7) `a` or `all` - all photosets in the chosen time period
-
-`-i [time_period]`, `--in [time_period]` - The time period to filter search results to; defaults to `all`
-    The following time periods are supported:
-	1) `all` - all time
-	2) `24hours` - the last 24 hours
-	3) `7days` - the last week
-	4) `1month` - the last month
-	5) `3months` - the last 3 months
-	6) `6months` - the last 6 months
-	7) All years from 2001 to 2018 inclusive
-
-`-n [name]`, `--name [name]` - The name(s) of girls to rip; only works for suicide girls and hopefuls; DO NOT MIX SUICIDE GIRLS AND HOPEFULS
-
-`-u [url]`, `--url [url]` - The URL(s) of sets to rip
+`-i [time_period]`, `--in [time_period]` - The time period to filter search results to; defaults to `all`  
+    The following time periods are supported:  
+	1) `all` - all time  
+	2) `24hours` - the last 24 hours  
+	3) `7days` - the last week  
+	4) `1month` - the last month  
+	5) `3months` - the last 3 months  
+	6) `6months` - the last 6 months  
+	7) All years from 2001 to 2018 inclusive  
+`-n [name]`, `--name [name]` - The name(s) of girls to rip; only works for suicide girls and hopefuls; DO NOT MIX SUICIDE GIRLS AND HOPEFULS  
+`-u [url]`, `--url [url]` - The URL(s) of sets to rip  
 
 ## Examples
 ```
