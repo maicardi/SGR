@@ -29,7 +29,6 @@ class SG:
 		if type in ["girl", "hopeful"]:
 			for url in urls:
 				self.urls.append(self.__build_url(url))
-				print(self.__build_url(url))
 		else:
 			self.urls = urls
 			
@@ -43,9 +42,6 @@ class SG:
 				argument_list = SG.argument_lists.pop(0)
 
 				pool = multiprocessing.Pool(self.process_limit)
-				#driver = SG.driver
-				
-				#SG.driver = None
 				
 				pool.map(self.download_image, argument_list)
 				
@@ -55,7 +51,6 @@ class SG:
 				# map: 00:24:37
 				# map_async: 00:12:33
 				
-				#SG.driver = driver
 		print("Exiting dispatcher thread...")
 		
 	def startup(self):

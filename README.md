@@ -9,10 +9,19 @@ A script for ripping full-quality Suicide Girls photosets.
 5) Create a new directory called "dependencies" (`C:\SGR\dependencies` or `/var/SGR/dependencies`)
 6) Download the Chrome webdriver from http://chromedriver.chromium.org/ and place it into the dependencies directory (`C:\SGR\dependencies\chromedriver.exe` or `/var/SGR/dependencies/chromedriver`)
 7) Download aria2 from https://aria2.github.io/ and extract the files (not the directories) in the archive into a new folder `dependencies/aria2` (`C:\SGR\dependencies\aria2\aria2c.exe` or `/var/SGR/dependencies/aria2/aria`; compilation may be necessary for non-Windows users)
-8) Optional: open `sg_module/sg.py` in an editor and set your username and password on lines 4 and 5 (like `username = dudebro`). This will make it so you can't pass in the username and password when invoking the script, which can be insecure
+8) Follow the instructions in the credentials section
+
+## Credentials
+SGR requires a paid Suicide Girls account. Due to this, it requires a username and password. There are 3 different ways that you can specify your username and password, and you can mix them however you like. From highest to lowest priority, these are:
+* Directly entering them into `main.py` on lines 4 and 5
+* Creating a file called `credentials.json` in the same directory as `main.py` and filling it with JSON (template: `{"username":"","password":""}`)
+* Using the command line switches (`-l`, `-s`, `--username`, and `--password`)
+You can mix and match these however you want. For safety purposes, the command line switches are disabled if the username or password is found in either of the other 2 categories. This is done individually, so you can have your password in the `main.py` and still use `-l` to specify your username. 
+NOTE: It can be dangerous to enter login information (particularly passwords) directly into the command line. It is strongly recommended that you provide a `credentials.json` file. 
 
 ## Usage
-`cd` into your install directory and call `python main.py -h` for help
+`cd` into your install directory and call `python main.py [options]` to run it.  
+NOTE: Suicide Girls has presented me with a CAPTCHA every time I've run this script. Due to this, the script will watch for a CAPTCHA and wait for you to solve it. The timer displayed when the script completes does not count time spent solving the CAPTCHA. Since CAPTCHA solving is required, it is strongly recommended that you not run Chrome in headless mode.
 
 ## Flags
 * `-d`, `--dir` - The parent directory into which photosets should be downloaded (dir/Suicide Girls/<girl>/<set>); defaults to the current working directory  

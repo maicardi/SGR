@@ -1,4 +1,4 @@
-import argparse, sys, os.path, time
+import argparse, sys, os.path, time, json
 from sg_module.sg import SG
 
 username = None
@@ -27,6 +27,20 @@ time_period_translations = {**{time_periods[0] : "All Time",
 
 def print_welcome():
 	print("Suicide girls")
+
+def load_credentials(exec_dir):
+	credentials_path = os.path.join(exec_dir, "credentials.json")
+	if os.path.exists(credentials_path):
+		with open(credentials_path) as f:
+			credentials = json.loads(f.read())
+			
+			global username
+			global password
+			
+			if username is None and "username" in credentials.keys():
+				username = credentials["username"]
+			if password is None and "password" in credentials.keys():
+				password = credentials["password"]
 
 def parse_arguments():
 	parser = build_argparse()
@@ -90,8 +104,9 @@ def build_argparse():
 	
 if __name__ == "__main__":
 	print_welcome()
-	args = parse_arguments()
 	exec_dir = os.path.dirname(os.path.abspath(__file__))
+	load_credentials(exec_dir)
+	args = parse_arguments()
 	sg = SG(exec_dir, args[5], args[6], args[0], args[1], args[2], args[3], args[4])
 	sg.startup()
 	start = time.time()
