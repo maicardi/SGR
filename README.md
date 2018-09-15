@@ -16,7 +16,7 @@ SGR requires a paid Suicide Girls account. Due to this, it requires a username a
 * Directly entering them into `main.py` on lines 4 and 5
 * Creating a file called `credentials.json` in the same directory as `main.py` and filling it with JSON (template: `{"username":"","password":""}`)
 * Using the command line switches (`-l`, `-s`, `--username`, and `--password`)
-You can mix and match these however you want. For safety purposes, the command line switches are disabled if the username or password is found in either of the other 2 categories. This is done individually, so you can have your password in the `main.py` and still use `-l` to specify your username. 
+You can mix and match these however you want. For safety purposes, the command line switches are disabled if the username or password is found in either of the other 2 categories. This is done individually, so you can have your password in the `main.py` and still use `-l` to specify your username.  
 NOTE: It can be dangerous to enter login information (particularly passwords) directly into the command line. It is strongly recommended that you provide a `credentials.json` file. 
 
 ## Usage
