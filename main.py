@@ -1,5 +1,5 @@
 import argparse, sys, os.path, time, json
-from sg_module.sg import SG
+from suicidegirls_module.suicidegirls import SuicideGirls
 
 username = None
 password = None
@@ -107,7 +107,7 @@ if __name__ == "__main__":
 	exec_dir = os.path.dirname(os.path.abspath(__file__))
 	load_credentials(exec_dir)
 	args = parse_arguments()
-	sg = SG(exec_dir, args[5], args[6], args[0], args[1], args[2], args[3], args[4])
+	sg = SuicideGirls(exec_dir, args[5], args[6], args[0], args[1], args[2], args[3], args[4])
 	sg.startup()
 	start = time.time()
 	sg.rip()

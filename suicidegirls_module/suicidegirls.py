@@ -4,14 +4,14 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-class SG:
+class SuicideGirls:
 	driver = None
 	dispatcher_thread = None
 	argument_lists = []
 	stop_dispatching = False
 	
 	def __init__(self, exec_dir, username, password, dir, process_limit, urls, type, time_period):
-		SG.dispatcher_thread = threading.Thread(target=self.__dispatch)
+		SuicideGirls.dispatcher_thread = threading.Thread(target=self.__dispatch)
 		
 		self.username = username
 		self.password = password
@@ -32,14 +32,14 @@ class SG:
 		else:
 			self.urls = urls
 			
-		SG.dispatcher_thread.start()
+		SuicideGirls.dispatcher_thread.start()
 		
 	def __dispatch(self):
 		print("Beginning dispatcher thread...")
-		while not SG.stop_dispatching or len(SG.argument_lists) != 0:
-			if len(SG.argument_lists) != 0:
+		while not SuicideGirls.stop_dispatching or len(SuicideGirls.argument_lists) != 0:
+			if len(SuicideGirls.argument_lists) != 0:
 				print("Argument list found! Dispatching...")
-				argument_list = SG.argument_lists.pop(0)
+				argument_list = SuicideGirls.argument_lists.pop(0)
 
 				pool = multiprocessing.Pool(self.process_limit)
 				
@@ -54,14 +54,14 @@ class SG:
 		print("Exiting dispatcher thread...")
 		
 	def startup(self):
-		SG.driver = webdriver.Chrome(executable_path="dependencies/chromedriver.exe")
-		SG.driver.maximize_window()
-		SG.driver.implicitly_wait(5)
-		SG.driver.get(self.root_url)
+		SuicideGirls.driver = webdriver.Chrome(executable_path="dependencies/chromedriver.exe")
+		SuicideGirls.driver.maximize_window()
+		SuicideGirls.driver.implicitly_wait(5)
+		SuicideGirls.driver.get(self.root_url)
 		self.__login()
 	
 	def shutdown(self):
-		SG.driver.quit()
+		SuicideGirls.driver.quit()
 	
 	def __login(self):
 		login_button_xpath = "//a[@class='login button' or @class='button login']"
@@ -69,17 +69,17 @@ class SG:
 		username_box_xpath = "//input[@name='username']"
 		password_box_xpath = "//input[@name='password']"
 		
-		SG.driver.find_element_by_xpath(login_button_xpath).click()
-		SG.driver.find_element_by_xpath(username_box_xpath).send_keys(self.username)
-		SG.driver.find_element_by_xpath(password_box_xpath).send_keys(self.password)
-		SG.driver.find_element_by_xpath(login_form_submit_xpath).click()
+		SuicideGirls.driver.find_element_by_xpath(login_button_xpath).click()
+		SuicideGirls.driver.find_element_by_xpath(username_box_xpath).send_keys(self.username)
+		SuicideGirls.driver.find_element_by_xpath(password_box_xpath).send_keys(self.password)
+		SuicideGirls.driver.find_element_by_xpath(login_form_submit_xpath).click()
 
 		time.sleep(5)
 		
 		flag = False;
 		while True:
 			try:
-				image_select = SG.driver.find_element_by_xpath("//iframe[@title='recaptcha challenge']")
+				image_select = SuicideGirls.driver.find_element_by_xpath("//iframe[@title='recaptcha challenge']")
 				if not flag:
 					print("Found a captcha!")
 					flag = True
@@ -89,7 +89,7 @@ class SG:
 
 	def rip(self):
 		for url in self.urls:
-			SG.driver.get(url)
+			SuicideGirls.driver.get(url)
 			if self.__type == "girl":
 				print("Single girl")
 				self.__rip_girl()
@@ -109,21 +109,21 @@ class SG:
 				print("All!")
 				self.__rip_all_photos()
 		
-		SG.stop_dispatching = True
-		SG.dispatcher_thread.join()
+		SuicideGirls.stop_dispatching = True
+		SuicideGirls.dispatcher_thread.join()
 		
 		print("Rip completed.")
 		print("Total girls/hopefuls ripped: " + str(self.girls_completed))
 		print("Total sets ripped: " + str(self.sets_completed))
 		
 	def __rip_all_photos(self):
-		SG.driver.get(self.urls[0])
+		SuicideGirls.driver.get(self.urls[0])
 		self.__type = "hopefuls"
 		self.__rip_all_hopefuls()
-		SG.driver.get(self.urls[0])
+		SuicideGirls.driver.get(self.urls[0])
 		self.__type = "girls"
 		self.__rip_all_girls()
-		SG.driver.get(self.urls[0])
+		SuicideGirls.driver.get(self.urls[0])
 		self.__type = "sotds"
 		self.__rip_all_sets_of_the_day()
 		
@@ -147,24 +147,24 @@ class SG:
 		girl_name_xpath = "//article/header//h2/a"
 		load_more_xpath = "//a[@id='load-more']"
 		
-		choice = SG.driver.find_element_by_xpath(type_xpath)
-		SG.driver.get(choice.get_attribute("href"))
+		choice = SuicideGirls.driver.find_element_by_xpath(type_xpath)
+		SuicideGirls.driver.get(choice.get_attribute("href"))
 		
-		choice = SG.driver.find_element_by_xpath(time_period_xpath)
-		SG.driver.get(choice.get_attribute("href"))
+		choice = SuicideGirls.driver.find_element_by_xpath(time_period_xpath)
+		SuicideGirls.driver.get(choice.get_attribute("href"))
 		
 		girls = []
 		
 		iteration = 0
 		while True:
 			iteration += 1
-			names = SG.driver.find_elements_by_xpath(girl_name_xpath)
+			names = SuicideGirls.driver.find_elements_by_xpath(girl_name_xpath)
 			for name in names:
 				girls.append(name.text)
 			if iteration > 1:
-				SG.driver.execute_script("for(i=0;i<24;i++) {e = document.evaluate(\"//article[1]\", document.documentElement); e = e.iterateNext(); if (e == null) {break;}e.parentNode.removeChild(e);}")
+				SuicideGirls.driver.execute_script("for(i=0;i<24;i++) {e = document.evaluate(\"//article[1]\", document.documentElement); e = e.iterateNext(); if (e == null) {break;}e.parentNode.removeChild(e);}")
 				time.sleep(2)
-			lmb = SG.driver.find_elements_by_xpath(load_more_xpath)
+			lmb = SuicideGirls.driver.find_elements_by_xpath(load_more_xpath)
 			if len(lmb) > 0 and lmb[0].is_displayed():
 				lmb[0].click()
 				time.sleep(10)
@@ -175,9 +175,8 @@ class SG:
 		
 		for girl in sorted(girls):
 			url = self.__build_url(girl)
-			SG.driver.get(url)
+			SuicideGirls.driver.get(url)
 			self.__rip_girl()
-			
 		
 	def __rip_girl(self):
 		load_more_xpath = "//a[@id='load-more']"
@@ -185,23 +184,23 @@ class SG:
 		photosets_xpath = "//div[@id='content-container']//a[text()='Photosets']"
 		set_title_xpath = "//article/header//h2/a"
 		
-		url = SG.driver.find_element_by_xpath(photos_xpath).get_attribute("href")
-		SG.driver.get(url)
-		url = SG.driver.find_element_by_xpath(photosets_xpath).get_attribute("href")
-		SG.driver.get(url)
+		url = SuicideGirls.driver.find_element_by_xpath(photos_xpath).get_attribute("href")
+		SuicideGirls.driver.get(url)
+		url = SuicideGirls.driver.find_element_by_xpath(photosets_xpath).get_attribute("href")
+		SuicideGirls.driver.get(url)
 	
 		set_links = []
 		
 		iteration = 0
 		while True:
 			iteration += 1
-			titles = SG.driver.find_elements_by_xpath(set_title_xpath)
+			titles = SuicideGirls.driver.find_elements_by_xpath(set_title_xpath)
 			for title in titles:
 				set_links.append(title.get_attribute("href"))
 			if iteration > 1:
-				SG.driver.execute_script("for(i=0;i<9;i++) {e = document.evaluate(\"//article[1]\", document.documentElement); e = e.iterateNext(); if (e == null) {break;}e.parentNode.removeChild(e);}")
+				SuicideGirls.driver.execute_script("for(i=0;i<9;i++) {e = document.evaluate(\"//article[1]\", document.documentElement); e = e.iterateNext(); if (e == null) {break;}e.parentNode.removeChild(e);}")
 				time.sleep(2)
-			lmb = SG.driver.find_elements_by_xpath(load_more_xpath)
+			lmb = SuicideGirls.driver.find_elements_by_xpath(load_more_xpath)
 			if len(lmb) > 0 and lmb[0].is_displayed():
 				lmb[0].click()
 				time.sleep(10)
@@ -211,7 +210,7 @@ class SG:
 		set_links = list(set(set_links))
 		
 		for link in set_links:
-			SG.driver.get(link)
+			SuicideGirls.driver.get(link)
 			self.__rip_set()
 			
 		self.girls_completed += 1
@@ -222,8 +221,8 @@ class SG:
 		full_image_button_xpath = "//a[@id='button-view_full_size']"
 		full_image_url_xpath = "//div[@data-image_url]"
 		
-		girl = SG.driver.find_element_by_xpath(girl_xpath).text
-		title = SG.driver.find_element_by_xpath(title_xpath).text
+		girl = SuicideGirls.driver.find_element_by_xpath(girl_xpath).text
+		title = SuicideGirls.driver.find_element_by_xpath(title_xpath).text
 		
 		dir_name = os.path.join("Suicide Girls", girl.title(), title.title())
 		dir_name = re.subn("[<>:\"/\|?*]", "", dir_name)[0]
@@ -234,10 +233,10 @@ class SG:
 		if os.path.exists(dir_name):
 			check = True
 		
-		SG.driver.find_element_by_xpath(full_image_button_xpath).click()
+		SuicideGirls.driver.find_element_by_xpath(full_image_button_xpath).click()
 		time.sleep(5)
 		
-		images = SG.driver.find_elements_by_xpath(full_image_url_xpath)
+		images = SuicideGirls.driver.find_elements_by_xpath(full_image_url_xpath)
 		
 		image_urls = []
 		for i in range(0, len(images)):
@@ -283,7 +282,7 @@ class SG:
 				
 				args.append((error_strings, command, str(i + 1), urls[i], girl, title))
 			
-			SG.argument_lists.append(args)
+			SuicideGirls.argument_lists.append(args)
 		
 		if len(error_strings) > 0:
 			f = open(os.path.join(dir_name, "errors.txt", "w"))
