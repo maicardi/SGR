@@ -54,7 +54,15 @@ class SuicideGirls:
 		print("Exiting dispatcher thread...")
 		
 	def startup(self):
-		SuicideGirls.driver = webdriver.Chrome(executable_path="dependencies/chromedriver.exe")
+		# SuicideGirls.driver = webdriver.Chrome(executable_path="dependencies/chromedriver.exe")
+
+		# Experimental modification of the original Selenium webdriver in order not to load images in webdriver to optimize speed and data usage
+		# Don't know how to add the "executable_path" option with this method; in Linux is enough to copy to chromedriver to /usr/local/bin/chromedriver
+		chrome_options = webdriver.ChromeOptions()
+                prefs = {"profile.managed_default_content_settings.images": 2}
+                chrome_options.add_experimental_option("prefs", prefs)
+                SuicideGirls.driver = webdriver.Chrome(chrome_options=chrome_options)
+
 		SuicideGirls.driver.maximize_window()
 		SuicideGirls.driver.implicitly_wait(5)
 		SuicideGirls.driver.get(self.root_url)
